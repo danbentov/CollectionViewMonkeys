@@ -164,8 +164,8 @@ namespace CollectionViewMonkeys.Services
         {
             monkeys = new MonkeyCollection().Monkeys;
         }
-        
-        ObservableCollection<Monkey> monkeys;
+
+        public ObservableCollection<Monkey> monkeys { get; private set; }
 
         static Random random = new Random();
         public Monkey GetRandomMonkey()
