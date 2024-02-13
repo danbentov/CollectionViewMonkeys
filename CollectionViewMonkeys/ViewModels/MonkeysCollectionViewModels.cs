@@ -58,6 +58,7 @@ namespace CollectionViewMonkeys.ViewModels
             DeleteCommand = new Command<Monkey>(Delete);
             isRefreshing = false;
             RefreshCommand = new Command(Refresh);
+            SingleSelectCommand = new Command()
         }
 
         public Command RefreshCommand { get; set; }
@@ -85,6 +86,36 @@ namespace CollectionViewMonkeys.ViewModels
             }
         }
 
+        private object selectedMonkey;
+        public object SelectedMonkey
+        {
+            get
+            {
+                return this.selectedMonkey;
+            }
+            set
+            {
+                this.selectedMonkey = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Command SingleSelectCommand { get; set; }
+
+        async void OnSingleSelectMonkey()
+        {
+            if (SelectedMonkey != null)
+            {
+                var navParam = new Dictionary<string, object>()
+            {
+                { "selectedStudent",SelectedMonkey}
+            };
+                //Add goto here to show details
+                await Shell.Current.GoToAsync($"studentDetails", navParam);
+
+                SelectedMonkey = null;
+            }
+        }
 
 
     }
